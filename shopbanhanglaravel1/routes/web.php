@@ -27,7 +27,7 @@ Route::post('/admin-dashboard', 'AdminController@dashboard');
 Route::get('/admin-logout', 'AdminController@logout');
 
 // category product.....................
-Route::get('/add-category-product/{category_product_id}', 'CategoryProduct@add_category_product');
+Route::get('/add-category-product/', 'CategoryProduct@add_category_product');
 Route::get('/edit-category-product/{category_product_id}', 'CategoryProduct@edit_category_product');
 Route::get('/delete-category-product/{category_product_id}', 'CategoryProduct@delete_category_product');
 
@@ -75,3 +75,6 @@ Route::get('/active-product/{product_id}', 'ProductController@active_product');
 Route::post('/update-product/', 'ProductController@update_product');
 Route::post('/save-product', 'ProductController@save_product');
 
+// show_category_home
+
+Route::get('/thuong-hieu-san-pham/', 'CategoryProduct@show_brand_home');
