@@ -11,7 +11,7 @@
                                         <img src="public/uploads/product/{{$cate_pro->product_image}}" alt="" />
                                         <h2>{{number_format($cate_pro->product_price).' '.'VNĐ'}}</h2>
                                         <p>{{$cate_pro->product_name}}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
+                                        <a class="btn btn-default add-to-cart" data-product-id="{{data_get($cate_pro, 'product_id')}}" data-product-name="{{data_get($cate_pro, 'product_name')}}", data-product-cost="{{data_get($cate_pro, 'product_price')}}" data-product-choose="false" onclick="addToCart(this)"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
                                     </div>
                                 </div>
                         </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,6 +22,21 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style type="text/css">
+        #count_cart{
+            position: absolute;
+            height: 17px;
+            width: 17px;
+            border-radius: 50%;
+            background-color: red;
+            color: #fff;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            top: 0px;
+            right: -20px;
+        }
+    </style>
 </head><!--/head-->
 
 <body>
@@ -99,7 +114,7 @@
                                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="cart.html" style="position: relative;"><i class="fa fa-shopping-cart"></i> Cart <div id="count_cart">0</div></a></li>
                                 <li><a href="{{URL::to('/admin')}}"><i class="fa fa-lock"></i> Login</a></li>
                             </ul>
                         </div>
@@ -451,5 +466,44 @@
     <script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('public/frontend/js/main.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var cartItems = (localStorage.getItem('cartItems') == null) ? [] : JSON.parse(localStorage.getItem('cartItems'));
+            $.each($('.add-to-cart'), function(){
+                let elm = $(this);
+                let data_id = Number(elm.attr('data-product-id'));
+                if(cartItems.indexOf(data_id) != -1){
+                    elm.attr('data-product-choose', true);
+                    elm.html('<i class="fa fa-shopping-cart"></i>Xóa khỏi giỏ hàng');
+                    $('#count_cart').text(cartItems.length);
+                }
+            });
+        })
+        function addToCart(input){
+            let elm = $(input);
+            let productId = Number(elm.data('product-id'));
+            let isChose = elm.attr('data-product-choose');
+            let cartItems = (localStorage.getItem('cartItems') == null) ? [] : JSON.parse(localStorage.getItem('cartItems'));
+            if(isChose == 'true'){
+                let index = cartItems.indexOf(productId)
+                if(index != -1){
+                    cartItems.splice(index, 1);
+                }
+                elm.attr('data-product-choose', false);
+                elm.html('<i class="fa fa-shopping-cart"></i>Thêm giỏ hàng');
+                $('#count_cart').text(cartItems.length);
+                
+            }else{
+                if(cartItems.indexOf(productId) == -1){
+                    cartItems.push(productId);
+                }
+                elm.attr('data-product-choose', true);
+                elm.html('<i class="fa fa-shopping-cart"></i>Xóa khỏi giỏ hàng');
+                $('#count_cart').text(cartItems.length);
+            }
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            console.log(cartItems);
+        }
+    </script>
 </body>
 </html>
