@@ -78,3 +78,6 @@ Route::post('/save-product', 'ProductController@save_product');
 // show_category_home
 
 Route::get('/thuong-hieu-san-pham/', 'CategoryProduct@show_brand_home');
+
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/cart/display', 'CartController@display')->name('cart.display');
